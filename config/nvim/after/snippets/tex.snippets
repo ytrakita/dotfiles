@@ -1,0 +1,318 @@
+# Environments
+snippet beg \begin{} ... \end{} block
+	\\begin{${1:env}}
+		${0:${VISUAL}}
+	\\end{$1}
+
+# Chapter/Section
+snippet part document \part
+	\\part{${1:part name}}
+
+	${0}
+
+snippet chap \chapter
+	\\chapter{${1:chapter name}}
+
+	${0}
+snippet sec \section
+	\\section{${1:section name}}
+
+	${0}
+snippet subsec \subsection
+	\\subsection{${1:subsection name}}
+
+	${0}
+snippet ssubsec \subsubsection
+	\\subsubsection{${1:subsubsection name}}
+
+	${0}
+snippet par \paragraph
+	\\paragraph{${1:paragraph name}}
+
+	${0}
+snippet subpar \subparagraph
+	\\subparagraph{${1:subparagraph name}}
+
+	${0}
+# Table & Figure
+snippet tab table environment
+	\\begin{table}[${1:!htb}]
+		\centering
+		\\begin{tabular}{${2:c}}
+			${3}
+		\\end{tabular}
+		\caption{${4}}
+		\label{${5:tab:}}
+	\\end{table}
+	${0:${VISUAL}}
+
+snippet fig figure environment
+	\\begin{figure}[${1:!htb}]
+		\centering
+		${2}
+		\caption{${3}}
+		\label{${4:fig:}}
+	\\end{figure}
+	${0:${VISUAL}}
+
+# Lists
+snippet item itemize environment
+	\\begin{itemize}
+		\\item
+			${1}
+		]i${0}
+	\\end{itemize}
+
+snippet iteml itemize environment
+	\\begin{itemize}
+		\\item \label{item:${1}}
+			${2}
+		]il${0}
+	\\end{itemize}
+
+snippet itl \item with label
+	\\item \\label{item:${1}}
+		${2:${VISUAL}}
+
+snippet it \item
+	\\item
+		${1:${VISUAL}}
+
+snippet ]i \item (recursive)
+	\\item
+		${1}
+	]i${0}
+
+snippet ]il \item with label (recursive)
+	\\item \label{item:${1:}}
+		${2}
+	]il${0}
+
+snippet enum enumerate environment
+	\\begin{enumerate}
+		\\item
+			${1}
+		]i${0}
+	\\end{enumerate}
+
+snippet enuml enumerate environment with label
+	\\begin{enumerate}
+		\\item \\label{item:${1}}
+			${2}
+		]il${0}
+	\\end{enumerate}
+
+snippet enuma enumerate environment
+	\\begin{enumerate}[label = (\alph*), ref = \alph*]
+		\\item \label{item:$1}
+			${2}
+		]il${0}
+	\\end{enumerate}
+
+snippet desc description environment
+	\\begin{description}
+		\\item[${1}] ${0}
+	\\end{description}
+
+# Theorem-like
+snippet thm theorem environment
+	\\begin{theorem}
+		${0:${VISUAL}}
+	\\end{theorem}
+
+snippet prop proposition environment
+	\\begin{proposition}
+		${0:${VISUAL}}
+	\\end{proposition}
+
+snippet lem lemma environment
+	\\begin{lemma}
+		${0:${VISUAL}}
+	\\end{lemma}
+
+snippet def definition environment
+	\\begin{definition}
+		${0:${VISUAL}}
+	\\end{definition}
+
+snippet axm axiom environment
+	\\begin{axiom}
+		${0:${VISUAL}}
+	\\end{axiom}
+
+snippet cor corollary environment
+	\\begin{corollary}
+		${0:${VISUAL}}
+	\\end{corollary}
+
+snippet obs observation environment
+	\\begin{observation}
+		${0:${VISUAL}}
+	\\end{observation}
+
+snippet asm assumption environment
+	\\begin{assumption}
+		${0:${VISUAL}}
+	\\end{assumption}
+
+snippet proof proof environment
+	\\begin{proof}
+		${0:${VISUAL}}
+	\\end{proof}
+
+snippet clm claim environment
+	\\begin{claim}
+		${0:${VISUAL}}
+	\\end{claim}
+
+snippet center center environment
+	\\begin{center}
+		${0:${VISUAL}}
+	\\end{center}
+
+# Equations
+snippet ali align environment
+	\\begin{align}
+		${0:f(x)}
+	\\end{align}
+
+snippet alil align environment with label
+	\\begin{align}\\label{eq:${1}}
+		${0:f(x)}
+	\\end{align}
+
+snippet gather gather environment
+	\\begin{gather}
+		${0:f(x)}
+	\\end{gather}
+
+snippet eq equation environment
+	\\begin{equation}
+		${1:f(x)}
+	\\end{equation}
+
+snippet eql Labeled equation environment
+	\\begin{equation}\\label{eq:${2}}
+		${1:${VISUAL}}
+	\\end{equation}
+
+snippet eq* unnumbered equation environment
+	\\begin{equation*}
+		${0:${VISUAL}}
+	\\end{equation*}
+
+snippet case cases environment
+	\\begin{dcases*}
+		${1:f(x)} & if ${2:case}, \\\\
+		${3:g(x)} & ${0:${VISUAL}}
+	\\end{dcases*}
+
+snippet spl split environment
+	\\begin{split}
+		${0:${VISUAL}}
+	\\end{split}
+
+# Math
+snippet stackrel \stackrel{}{}
+	\\stackrel{${1:above}}{${2:below}} ${0}
+
+snippet frac \frac{}{}
+	\\frac{${1:num}}{${2:denom}}${0}
+
+snippet deriv \deriv{}{}
+	\\deriv{${1:f}}{${2:x}} ${0}
+
+snippet pderiv \pderiv{}{}
+	\\pderiv{${1:f}}{${2:x}} ${0}
+
+snippet sum \sum^{}_{}
+	\\sum_{${1:i=1}}^{${2:n}} ${0}
+
+snippet lim \lim_{}
+	\\lim_{${1:n \\to \\infty}} ${0}
+
+# Beamer
+snippet frm frame environment
+	\\begin{frame}{${1:${VISUAL}}}
+		${0:${VISUAL}}
+	\\end{frame}
+
+snippet bl block environment
+	\\begin{block}{${1:Title}}
+		${0:${VISUAL}}
+	\\end{block}
+
+snippet alert alert text
+	\\alert{${1:${VISUAL:text}}} ${0}
+
+snippet abl alertblock environment
+	\\begin{alertblock}{${1:title}}
+		${0:${VISUAL}}
+	\\end{alertblock}
+
+snippet ebl exampleblock environment
+	\\begin{exampleblock}{${1:title}}
+		${0:${VISUAL}}
+	\\end{exampleblock}
+
+# Delimiter
+snippet lr left right
+	\\left${1} ${0:${VISUAL}} \\right$1
+
+snippet lr) left( right)
+	\\left( ${0:${VISUAL}} \\right)
+
+snippet lr| left| right|
+	\\left| ${0:${VISUAL}} \\right|
+
+snippet lr} left\{ right\}
+	\\left\\{ ${0:${VISUAL}} \\right\\}
+
+snippet lr] left[ right]
+	\\left[ ${0:${VISUAL}} \\right]
+
+snippet lra langle rangle
+	\\langle ${0:${VISUAL}} \\rangle
+
+snippet b) bigl( bigr)
+	\\bigl(${0:${VISUAL}}\\bigr)
+
+snippet b] bigl[ bigr]
+	\\bigl[${0:${VISUAL}}\\bigr]
+
+snippet b} bigl\{ bigr\}
+	\\bigl\{${0:${VISUAL}}\\bigr\\}
+
+snippet B) Bigl( Bigr)
+	\\Bigl(${0:${VISUAL}}\\Bigr)
+
+snippet B] Bigl[ Bigr]
+	\\Bigl[${0:${VISUAL}}\\Bigr]
+
+snippet B} Bigl\{ Bigr\}
+	\\Bigl\{${0:${VISUAL}}\\Bigr\\}
+
+snippet bg) biggl( biggr)
+	\\biggl(${0:${VISUAL}}\\biggr)
+
+snippet bg] biggl[ biggr]
+	\\biggl[${0:${VISUAL}}\\biggr]
+
+snippet bg} biggl\{ biggr\}
+	\\biggl\{${0:${VISUAL}}\\biggr\\}
+
+snippet Bg) Biggl( Biggr)
+	\\Biggl(${0:${VISUAL}}\\Biggr)
+
+snippet Bg] Biggl[ Biggr]
+	\\Biggl[${0:${VISUAL}}\\Biggr]
+
+snippet Bg} Biggl\{ Biggr\}
+	\\Biggl\{${0:${VISUAL}}\\Biggr\\}
+
+# Misc
+snippet em \emph
+	\\emph{${1}}${0:${VISUAL}}
+
+snippet aref \axmref
+	\\axmref{axm:${1}}${0}

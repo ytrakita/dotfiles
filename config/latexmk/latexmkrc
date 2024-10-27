@@ -1,0 +1,32 @@
+#!/usr/bin/env perl
+
+$clean_ext = 'synctex.gz synctex.gz(busy) synctex(busy)' .
+' run.xml tex.bak bbl bcf brf fdb_latexmk run tdo %R-blx.bib dvi nav snm vrb' .
+' glo hd';
+$clean_full_ext = $clean_ext . 'bbl';
+
+$opts = ' %O' .
+' -file-line-error' .
+' -halt-on-error' .
+' -interaction=nonstopmode' .
+' -synctex=1' .
+' %S';
+$latex = 'uplatex' . $opts;
+$pdflatex = 'pdflatex' . $opts;
+$lualatex = 'lualatex' . $opts;
+$xelatex = 'xelatex' . $opts;
+
+$dvipdf = 'dvipdfmx %O -o %D %S';
+
+$pdf_mode = 3;
+
+$bibtex = 'upbibtex %O %B';
+$biber = 'biber --bblencoding=utf8 -u -U --output_safechars %O %B';
+
+$makeindex = 'upmendex %O -o %D %S';
+
+$max_repeat = 5;
+
+$pdf_previewer = 'open -ga /Applications/Skim.app %S';
+
+$pvc_view_file_via_temporary = 0;

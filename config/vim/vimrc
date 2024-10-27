@@ -1,0 +1,141 @@
+set nocompatible
+
+set runtimepath^=$XDG_CONFIG_HOME/vim
+set runtimepath+=$XDG_DATA_HOME/vim
+set runtimepath+=$XDG_CONFIG_HOME/vim/after
+
+if has('vim_starting')
+  language en_US.UTF-8
+
+  set encoding=utf-8
+
+  let g:loaded_gzip = 1
+  let g:loaded_tar = 1
+  let g:loaded_tarPlugin = 1
+  let g:loaded_zip = 1
+  let g:loaded_zipPlugin = 1
+  let g:loaded_rrhelper = 1
+  let g:loaded_2html_plugin = 1
+  let g:loaded_vimball = 1
+  let g:loaded_vimballPlugin = 1
+  let g:loaded_getscript = 1
+  let g:loaded_getscriptPlugin = 1
+  let g:loaded_netrw = 1
+  let g:loaded_netrwPlugin = 1
+  let g:loaded_netrwSettings = 1
+  let g:loaded_netrwFileHandlers = 1
+
+  syntax enable
+endif
+
+set autoread
+set autoindent
+set backspace=indent,eol,start
+set nobackup
+set breakindent
+set clipboard&
+set clipboard+=unnamed,unnamedplus
+set completeopt&
+set completeopt-=preview
+set cursorline
+set expandtab
+set fileencoding=utf-8
+set fileencodings=utf-8
+set fileformats=unix,dos,mac
+set fillchars=eob:\ ,vert:\ ,fold:·
+set foldcolumn=2
+set foldmethod=manual
+set foldtext=fold#foldtext()
+set gdefault
+set guicursor=n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20
+set helplang&
+set helplang+=en,ja
+set hidden
+set history=10000
+set hlsearch
+set ignorecase
+set iminsert=0
+set incsearch
+set laststatus=0
+set list
+set listchars=tab:<·>,trail:·,eol:¬
+set matchtime=1
+set mouse=a
+set number
+set pumheight=10
+set ruler
+set scrolloff=2
+set shiftwidth=0
+set showcmd
+set showmatch
+set showmode
+set smartcase
+set smartindent
+set spellfile=$XDG_DATA_HOME/nvim/spell/en.utf-8.add
+set spelllang=en,cjk
+set splitbelow
+set splitright
+set noswapfile
+set tabstop=2
+set termguicolors
+set title
+set viewdir=$XDG_DATA_HOME/vim/view
+set viewoptions&
+set viewoptions-=options
+set viminfofile=$XDG_DATA_HOME/vim/viminfo
+set virtualedit=onemore
+set whichwrap=b,s,<,>,[,],~
+set wildmenu
+set wildmode=longest,full
+set wrapscan
+set nowritebackup
+
+
+nnoremap <expr>   l          foldclosed(line('.')) != -1 ? 'zo0' : 'l'
+nnoremap          Q          <Nop>
+nnoremap          Y          y$
+nnoremap          ZQ         <Nop>
+nnoremap          ZZ         <Nop>
+nnoremap <silent> <C-L>      <Cmd>nohlsearch<CR><C-L>
+nnoremap <silent> <Space>ev  <Cmd>edit $MYVIMRC<CR>
+
+inoremap          <C-A>      <C-O>^
+inoremap          <C-B>      <Left>
+inoremap          <C-D>      <Del>
+inoremap          <C-E>      <End>
+inoremap          <C-F>      <Right>
+inoremap          <C-T>      <Esc><Left>"zx"zpa
+
+xnoremap <expr>   p          'pgv"' . v:register . 'y`>'
+xnoremap          <          <gv
+xnoremap          >          >gv
+
+cnoremap <expr>   %%         getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+cnoremap          <C-A>      <Home>
+cnoremap          <C-B>      <Left>
+cnoremap          <C-D>      <Del>
+cnoremap          <C-E>      <End>
+cnoremap          <C-F>      <Right>
+cnoremap          <C-K>      <C-\>e getcmdpos() == 1 ?
+                             \ '' : getcmdline()[:getcmdpos() - 2]<CR>
+cnoremap          <C-N>      <Down>
+cnoremap          <C-P>      <Up>
+
+tnoremap          <ESC>      <C-\><C-N>
+
+
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
+autocmd MyAutoCmd BufWritePre *  silent! %substitute/\s\+$//ge
+
+autocmd MyAutoCmd CmdwinEnter :  global/^qa\?!\?$/delete
+autocmd MyAutoCmd CmdwinEnter :  global/^wq\?a\?!\?$/delete
+
+autocmd MyAutoCmd BufWritePost $MYVIMRC ++nested  source $MYVIMRC
+
+
+call mkdir(&viewdir, 'p', 0700)
+
+set secure

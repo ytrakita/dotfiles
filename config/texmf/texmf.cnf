@@ -1,0 +1,2 @@
+TEXMFHOME = $XDG_DATA_HOME/texmf
+max_print_line = 199

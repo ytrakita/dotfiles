@@ -119,11 +119,6 @@ set_default_photo () {
   defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 }
 
-set_default_hammerspoon () {
-  # https://github.com/Hammerspoon/hammerspoon/issues/2175
-  defaults write org.hammerspoon.Hammerspoon MJConfigFile "$XDG_CONFIG_HOME/hammerspoon/init.lua"
-}
-
 delocalize () {
   for f in $HOME/* \
     "/Applications" \
@@ -136,18 +131,7 @@ delocalize () {
   done
 }
 
-install_homebrew () {
-  if has "brew"; then
-    ok_msg "Homebrew is already installed"
-  else
-    start_msg "Installing Homebrew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  fi
-  start_msg "Installing Homebrew apps"
-  brew bundle --file $REPO_ROOT/config/homebrew/Brewfile --no-lock
-}
-
-setup_macos () {
+set_macos_defaults () {
   sudo -v
   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
@@ -160,11 +144,8 @@ setup_macos () {
   set_default_timemachine
   set_default_appstore
   set_default_photo
-  set_default_hammerspoon
   delocalize
 
   killall Dock
   killall Finder
-
-  install_homebrew
 }

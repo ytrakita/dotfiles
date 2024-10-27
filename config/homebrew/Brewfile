@@ -1,7 +1,5 @@
 tap "delphinus/sfmono-square"
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
-tap "sanemat/font"
 
 brew "bat"
 brew "delphinus/sfmono-square/sfmono-square"

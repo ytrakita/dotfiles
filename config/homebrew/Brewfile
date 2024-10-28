@@ -1,4 +1,5 @@
 tap "delphinus/sfmono-square"
+tap "jesseduffield/lazygit/lazygit"
 tap "homebrew/bundle"
 
 brew "bat"

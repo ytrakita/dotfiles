@@ -62,6 +62,11 @@ return {
     end,
   },
   {
+    'romgrk/fzy-lua-native',
+    build = 'make',
+    lazy = true,
+  },
+  {
     dir = '~/repos/tfx.nvim',
     config = function()
       local tfx = require 'tfx'

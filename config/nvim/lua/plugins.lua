@@ -92,12 +92,6 @@ return {
   {
     dir = '~/repos/closer.nvim',
     event = 'InsertEnter',
-    keys = {
-      { '<BS>', '<Plug>(closer_bs)', mode = 'i' },
-      { '<C-H>', '<Plug>(closer_bs)', mode = 'i' },
-      { '<CR>', '<Plug>(closer_cr)', mode = 'i' },
-      { ' ', '<Plug>(closer_space)', mode = 'i' },
-    },
     opts = {
       ft = {
         tex = {
@@ -115,6 +109,7 @@ return {
           ['|'] = '|',
           ['<'] = '>',
         },
+        ['filtration-prompt'] = {},
       },
     },
   },
@@ -162,10 +157,6 @@ return {
         return vim.api.nvim_win_get_config(winid).relative ~= ''
       end
     },
-  },
-  {
-    'vim-denops/denops.vim',
-    event = { 'CursorHold', 'FocusLost' },
   },
   require 'lazy.ts',
   require 'lazy.lsp',

@@ -109,19 +109,17 @@ return {
   i { 'dcampos/cmp-snippy' },
   {
     'dcampos/nvim-snippy',
-    config = function()
-      require 'snippy'.setup {
-        mappings = {
-          is = {
-            ['<C-L>'] = 'expand_or_advance',
-            ['<C-;>'] = 'previous',
-          },
-          nx = {
-            ['<leader>x'] = 'cut_text',
-          },
+    opts = {
+      mappings = {
+        is = {
+          ['<C-L>'] = 'expand_or_advance',
+          ['<C-;>'] = 'previous',
         },
-      }
-    end,
+        nx = {
+          ['<leader>x'] = 'cut_text',
+        },
+      },
+    },
     lazy = true,
   },
   { 'honza/vim-snippets', lazy = true },

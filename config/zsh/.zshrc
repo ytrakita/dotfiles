@@ -56,7 +56,11 @@ zstyle ':completion:*' verbose no
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# Github CLI
+# Lazygit
+
+alias lg='lazygit'
+
+# GitHub CLI
 
 eval "$(gh completion -s zsh)"
 

@@ -10,4 +10,8 @@ vim.filetype.add {
     Brewfile = 'ruby',
     ['kitty.conf'] = 'kitty',
   },
+  pattern = {
+    ['.*/_layouts/.*%.html'] = 'liquid',
+    ['.*/_includes/.*%.html'] = 'liquid',
+  },
 }

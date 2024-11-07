@@ -1,16 +1,40 @@
 #!/usr/bin/env perl
 
-$clean_ext = 'synctex.gz synctex.gz(busy) synctex(busy)' .
-' run.xml tex.bak bbl bcf brf fdb_latexmk run tdo %R-blx.bib dvi nav snm vrb' .
-' glo hd';
+my @clean_exts = (
+  '%R-blx.bib',
+  'bbl',
+  'bcf',
+  'brf',
+  'cb',
+  'dvi',
+  'fdb_latexmk',
+  'fls',
+  'glo',
+  'hd',
+  'nav',
+  'nlo',
+  'nls',
+  'run',
+  'run.xml',
+  'snm',
+  'synctex(busy)',
+  'synctex.gz',
+  'synctex.gz(busy)',
+  'tdo',
+  'tex.bak',
+  'vrb',
+);
+$clean_ext = join(' ', @clean_exts);
 $clean_full_ext = $clean_ext . 'bbl';
 
-$opts = ' %O' .
-' -file-line-error' .
-' -halt-on-error' .
-' -interaction=nonstopmode' .
-' -synctex=1' .
-' %S';
+$opts = join(' ', (
+    ' %O',
+    '-file-line-error',
+    '-halt-on-error',
+    '-interaction=nonstopmode',
+    '-synctex=1',
+    '%S',
+  ));
 $latex = 'uplatex' . $opts;
 $pdflatex = 'pdflatex' . $opts;
 $lualatex = 'lualatex' . $opts;

@@ -38,6 +38,9 @@ symbol = ' '
 [lua]
 symbol = ' '
 
+[nodejs]
+symbol = ' '
+
 [python]
 symbol = ' '
 
@@ -46,3 +49,11 @@ symbol = ' '
 
 [rust]
 symbol = ' '
+
+[custom.html]
+detect_extensions = ['html']
+symbol = ' '
+
+[custom.tex]
+detect_extensions = ['tex']
+symbol = ' '

@@ -21,7 +21,13 @@ return {
     },
   },
   {
+    dir = '~/repos/floatmenu.nvim',
+    opts = {},
+    lazy = true,
+  },
+  {
     dir = '~/repos/filtration.nvim',
+    keys = { ' b' },
     config = function()
       local filtration = require 'filtration'
 
@@ -68,6 +74,7 @@ return {
   },
   {
     dir = '~/repos/tfx.nvim',
+    keys = { ' f' },
     config = function()
       local tfx = require 'tfx'
 
@@ -81,6 +88,9 @@ return {
           ['t'] = { 'go', 't' },
           u = { 'up' },
           q = { 'quit' },
+          o = { 'add' },
+          D = { 'delete' },
+          R = { 'rename' },
         },
       }
 

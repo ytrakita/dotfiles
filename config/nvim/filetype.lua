@@ -4,7 +4,7 @@ vim.filetype.add {
     def = 'plaintex',
     sty = 'plaintex',
     tex = 'tex',
-    snip = 'neosnippet',
+    snippets = 'snippets',
   },
   filename  = {
     Brewfile = 'ruby',

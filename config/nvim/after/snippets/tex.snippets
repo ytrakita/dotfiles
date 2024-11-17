@@ -14,22 +14,27 @@ snippet chap \chapter
 	\\chapter{${1:chapter name}}
 
 	${0}
+
 snippet sec \section
 	\\section{${1:section name}}
 
 	${0}
+
 snippet subsec \subsection
 	\\subsection{${1:subsection name}}
 
 	${0}
+
 snippet ssubsec \subsubsection
 	\\subsubsection{${1:subsubsection name}}
 
 	${0}
+
 snippet par \paragraph
 	\\paragraph{${1:paragraph name}}
 
 	${0}
+
 snippet subpar \subparagraph
 	\\subparagraph{${1:subparagraph name}}
 
@@ -111,7 +116,8 @@ snippet enuma enumerate environment
 
 snippet desc description environment
 	\\begin{description}
-		\\item[${1}] ${0}
+		\\item[${1}]
+			${0}
 	\\end{description}
 
 # Theorem-like
@@ -226,7 +232,7 @@ snippet pderiv \pderiv{}{}
 	\\pderiv{${1:f}}{${2:x}} ${0}
 
 snippet sum \sum^{}_{}
-	\\sum_{${1:i=1}}^{${2:n}} ${0}
+	\\sum_{${1:i \\in I}}${0}
 
 snippet lim \lim_{}
 	\\lim_{${1:n \\to \\infty}} ${0}

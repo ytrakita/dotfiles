@@ -151,10 +151,12 @@ return {
     opts = {
       on_attach = function(bnum)
         vim.keymap.set('n', ']c', function()
-          require 'gitsigns'.next_hunk()
+          require 'gitsigns'.nav_hunk('next')
+          vim.cmd.normal 'zt'
         end, { buffer = bnum })
         vim.keymap.set('n', '[c', function()
-          require 'gitsigns'.prev_hunk()
+          require 'gitsigns'.nav_hunk('prev')
+          vim.cmd.normal 'zt'
         end, { buffer = bnum })
       end
     },

@@ -2,27 +2,35 @@ local api = vim.api
 
 local M = {}
 
+local p = {
+  verylightgray = '#dbe6ec',
+  lightgray = '#99a9b3',
+  darkgray = '#3b444f',
+  verydarkgray = '#2c3643',
+  green = '#16c98d',
+  softblue = '#8abee5',
+  purple = '#ff708e',
+  cyan = '#27dede',
+  blue = '#288ad6',
+}
+
 local hl_tbl = {
-  StatusLineInactive = { fg = '#99a9b3', bg = '#3b444f' },
-  StatusLinePreview = { fg = '#99a9b3', bg = '#3b444f' },
-  StatusLineCommand0 = { fg = '#2c3643', bg = '#dbe6ec' },
-  StatusLineCommand1 = { fg = '#dbe6ec', bg = '#3b444f' },
-  StatusLineInsert0 = { fg = '#2c3643', bg = '#16c98d' },
-  StatusLineInsert1 = { fg = '#16c98d', bg = '#3b444f' },
-  StatusLineNormal0 = { fg = '#2c3643', bg = '#8abee5' },
-  StatusLineNormal1 = { fg = '#8abee5', bg = '#3b444f' },
-  StatusLineReplace0 = { fg = '#2c3643', bg = '#ff708e' },
-  StatusLineReplace1 = { fg = '#ff708e', bg = '#3b444f' },
-  StatusLineTerminal0 = { fg = '#2c3643', bg = '#27dede' },
-  StatusLineTerminal1 = { fg = '#27dede', bg = '#3b444f' },
-  StatusLineVisual0 = { fg = '#2c3643', bg = '#288ad6' },
-  StatusLineVisual1 = { fg = '#288ad6', bg = '#3b444f' },
+  Command = p.verylightgray,
+  Insert = p.green,
+  Normal = p.softblue,
+  Replace = p.purple,
+  Terminal = p.cyan,
+  Visual = p.blue,
 }
 
 function M.highlight()
+  local s = 'StatusLine'
   for name, val in pairs(hl_tbl) do
-    api.nvim_set_hl(0, name, val)
+    api.nvim_set_hl(0, s .. name .. '0', { fg = p.verydarkgray, bg = val })
+    api.nvim_set_hl(0, s .. name .. '1', { fg = val, bg = p.darkgray })
   end
+  api.nvim_set_hl(0, s .. 'Inactive', { fg = p.lightgray, bg = p.darkgray })
+  api.nvim_set_hl(0, s .. 'Preview', { fg = p.lightgray, bg = p.darkgray })
 end
 
 local function filename(bnum)
@@ -110,11 +118,6 @@ local function cmd_line()
   return table.concat(line, ' ')
 end
 
-local function toc_line()
-  local line = { '%#StatusLineNormal1#', 'CONTENTS' }
-  return table.concat(line, ' ')
-end
-
 local function active_line()
   local line = {
     hi_group(0),
@@ -151,8 +154,6 @@ function M.statusline()
 
   if bufname:find('[Command Line]', 1, true) then
     return cmd_line()
-  elseif bufname:find('Table of contents (VimTeX)', 1, true) then
-    return toc_line()
   elseif win == api.nvim_get_current_win() then
     return active_line()
   elseif bufname:find('[Preview]', 1, true) then

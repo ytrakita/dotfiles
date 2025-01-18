@@ -73,7 +73,6 @@ return {
             keyword_length = 2,
             option = { convert_case = true, loud = true },
           },
-          { name = 'skkeleton' },
         },
       }
       cmp.setup.filetype({ 'filtration-prompt' }, { sources = {} })
@@ -99,7 +98,6 @@ return {
   i { 'lukas-reineke/cmp-rg' },
   i { 'octaltree/cmp-look' },
   i { 'ray-x/cmp-treesitter' },
-  i { 'uga-rosa/cmp-skkeleton' },
 
   {
     'hrsh7th/cmp-nvim-lua',
@@ -123,30 +121,4 @@ return {
     lazy = true,
   },
   { 'honza/vim-snippets', lazy = true },
-
-
-  {
-    'vim-skk/skkeleton',
-    dependencies = { 'vim-denops/denops.vim' },
-    event = { 'InsertEnter', 'CmdLineEnter' },
-    keys = {
-      { '<C-J>', '<Plug>(skkeleton-enable)', mode = { 'i', 'c', 'l' } },
-    },
-    config = function()
-      vfn['skkeleton#config'] {
-        globalDictionaries = { '~/.local/share/skk/SKK-JISYO.L' },
-        userDictionary = '~/Library/Application Support/AquaSKK/skk-jisyo.utf8',
-        -- userDictionary = '~/.local/share/skk/skkeleton',
-        keepState = false,
-        eggLikeNewline = true,
-      }
-      vfn['skkeleton#register_kanatable']('rom', {
-        ['('] = { '（', '' },
-        [')'] = { '）', '' },
-        ['z '] = { '　', '' },
-        ['/'] = { '・', '' },
-      })
-    end,
-    priority = 10,
-  },
 }

@@ -104,15 +104,6 @@ local function hi_group(num)
   return table.concat { '%#StatusLine', mode_group, num, '#' }
 end
 
-local function get_skk_mode()
-  local skk_mode_map = {
-    hira = 'あ',
-    kata = 'ア',
-    hankata = 'ｱ',
-  }
-  return skk_mode_map[vim.g['skkeleton#mode']] or ''
-end
-
 local function cmd_line()
   local line = { '%#StatusLineCommand0#', 'C-LINE', '%#StatusLineCommand1#' }
   return table.concat(line, ' ')
@@ -125,7 +116,6 @@ local function active_line()
     hi_group(1),
     filename(0),
     '%=',
-    get_skk_mode(),
     vim.b.texpreview and '●' or '',
     vim.bo.filetype == '' and 'no ft' or vim.bo.filetype,
     '%3p%%',

@@ -74,6 +74,8 @@ return {
   foldtext = [[v:lua.require'fold'.foldtext()]],
   list = true,
   number = true,
+  numberwidth = 5,
+  relativenumber = true,
   signcolumn = 'yes:1',
   statusline = [[%!v:lua.require'statusline'.statusline()]],
   winblend = 10,

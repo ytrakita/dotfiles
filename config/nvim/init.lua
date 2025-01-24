@@ -48,6 +48,7 @@ end
 vim.cmd.colorscheme 'chester'
 
 api.nvim_set_hl(0, 'SignColumn', { bg = 'None' })
+api.nvim_set_hl(0, 'CursorLineNr', { fg = '#feef6d', bg = '#3b444f' })
 
 for _, group in ipairs(vfn.getcompletion('@lsp', 'highlight')) do
   api.nvim_set_hl(0, group, {})

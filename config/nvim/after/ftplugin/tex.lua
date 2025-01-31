@@ -6,9 +6,10 @@ vim.g.plaintex_delimiters = 1
 vim.g.tex_flavor = 'latex'
 vim.g.tex_comment_nospell = 1
 
+vim.opt_local.commentstring = '% %s'
+
 vim.opt_local.colorcolumn = '80'
 vim.opt_local.spell = true
-
 vim.opt_local.foldmethod = 'expr'
 vim.opt_local.foldexpr = 'nvim_treesitter#foldexpr()'
 

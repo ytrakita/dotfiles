@@ -30,7 +30,7 @@ return {
           end
         },
         mapping = {
-          ['<CR>'] = cmpmap.confirm { select = false },
+          ['<CR>'] = cmpmap.confirm { select = true },
           ['<C-N>'] = cmpmap(cmpmap.select_next_item(), { 'i', 'c' }),
           ['<C-P>'] = cmpmap(cmpmap.select_prev_item(), { 'i', 'c' }),
           ['<A-U>'] = cmpmap(cmpmap.scroll_docs(-4), { 'i', 'c' }),

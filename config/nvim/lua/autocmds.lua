@@ -45,6 +45,7 @@ return {
     callback = function()
       vim.wo.foldcolumn = '0'
       vim.wo.number = false
+      vim.wo.relativenumber = false
       vim.wo.signcolumn = 'no'
       vim.keymap.set('n', 'q', '<C-W>q', { buffer = true })
     end,

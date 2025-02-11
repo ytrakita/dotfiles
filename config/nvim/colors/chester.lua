@@ -1,11 +1,10 @@
 local vim = vim
 local api = vim.api
-local vg = vim.g
 
-vim.cmd 'highlight clear'
-vim.cmd 'syntax reset'
+vim.cmd.highlight 'clear'
+vim.cmd.syntax 'reset'
 
-vg.colors_name = 'chester'
+vim.g.colors_name = 'chester'
 
 vim.o.background = 'dark'
 vim.o.termguicolors = true
@@ -28,6 +27,8 @@ local p = {
 
   softblue = '#8abee5',
   softgreen = '#c7e6aa',
+
+  selectblue = '#1d508d',
 }
 
 local tbl = {
@@ -36,38 +37,55 @@ local tbl = {
   Conceal = { fg = p.lightgray, bg = p.darkgray },
   CurSearch = { link = 'Search' },
   Cursor = {},
+  lCursor = {},
   CursorColumn = { bg = p.darkgray },
   CursorIM = {},
   CursorLine = {},
-  CursorLineNr = { fg = p.lightgray, bg = p.darkgray },
+  Directory = { fg = p.cyan },
   DiffAdd = { fg = p.green },
   DiffChange = { fg = p.orange },
   DiffDelete = { fg = p.red },
   DiffText = { fg = p.blue },
-  Directory = { fg = p.cyan },
   EndOfBuffer = { fg = p.gray },
+  TermCursor = { reverse = true },
+  TermCursorNC = {},
   ErrorMsg = { fg = p.white, bg = p.red },
-  FoldColumn = { fg = p.blue, bg = p.verydarkgray },
+  WinSeparator = { fg = p.verydarkgray, bg = p.verydarkgray },
   Folded = { fg = p.blue },
+  FoldColumn = { fg = p.blue, bg = p.verydarkgray },
+  SignColumn = { fg = p.cyan, bg = p.darkgray },
   IncSearch = { link = 'Search' },
+  Substitute = { link = 'Search' },
   LineNr = { fg = p.lightgray },
   LineNrAbove = { fg = p.lightgray },
   LineNrBelow = { fg = p.lightgray },
-  MatchParen = { underline = true },
+  CursorLineNr = { fg = p.lightgray, bg = p.darkgray },
+  CursorLineFold = { link = 'Folded' },
+  CursorLineSign = { link = 'SignColumn' },
+  MatchParen = { bold = true, underline = true },
   ModeMsg = { bold = true },
+  MsgArea = {},
+  MsgSeparator = { link = 'StatusLine' },
+  MoreMsg = { fg = p.cyan },
   NonText = { fg = p.gray },
   Normal = { fg = p.verylightgray, bg = p.verydarkgray },
   NormalFloat = { bg = p.darkgray },
+  FloatBorder = { link = 'NormalFloat' },
   FloatTitle = { fg = p.purple, bg = p.darkgray, bold = true },
+  FloatFooter = { link = 'FloatTitle' },
   NormalNC = {},
   Pmenu = { bg = p.darkgray },
+  PmenuSel = { bg = p.selectblue },
+  PmenuKind = { link = 'Pmenu' },
+  PmenuKindSel = { link = 'PmenuSel' },
+  PmenuExtra = { link = 'Pmenu' },
+  PmenuExtraSel = { link = 'PmenuSel' },
   PmenuSbar = { bg = p.gray },
-  PmenuSel = { link = 'Visual' },
-  PmenuThumb = { bg = p.white },
+  PmenuThumb = { fg = p.white, bg = p.white },
   Question = { fg = p.green, bold = true },
   QuickFixLine = { link = 'PmenuSel' },
-  Search = { link = 'Visual' },
-  SignColumn = { fg = p.cyan, bg = p.darkgray },
+  Search = { bg = p.selectblue },
+  SnippetTabstop = { bg = p.selectblue },
   SpecialKey = { fg = p.gray },
   SpellBad = { sp = p.red, undercurl = true },
   SpellCap = { sp = p.blue, undercurl = true },
@@ -75,20 +93,17 @@ local tbl = {
   SpellRare = { sp = p.purple, undercurl = true },
   StatusLine = { fg = p.softblue, bg = p.verydarkgray },
   StatusLineNC = { fg = p.lightgray, bg = p.verydarkgray },
-  Substitute = { link = 'Search' },
   TabLine = { fg = p.lightgray, bg = p.darkgray },
   TabLineFill = { fg = p.lightgray, bg = p.darkgray },
   TabLineSel = { fg = p.softblue, bg = p.verydarkgray, bold = true },
-  TermCursor = { reverse = true },
-  TermCursorNC = {},
   Title = { fg = p.purple, bold = true },
-  Visual = { bg = '#1d508d' },
+  Visual = { bg = p.selectblue },
   VisualNOS = {},
   WarningMsg = { fg = p.red },
   Whitespace = { fg = p.gray },
   WildMenu = { bg = '#1d508d' },
-  WinSeparator = { fg = p.verydarkgray, bg = p.verydarkgray },
-  lCursor = {},
+  Winbar = { link = 'StatusLine' },
+  WinbarNC = { link = 'StatusLineNC' },
 
   -- Syntax highlight
   Comment = { fg = p.lightgray },
@@ -136,6 +151,10 @@ local tbl = {
   Error = { fg = p.white, bg = p.red, bold = true },
 
   Todo = { fg = p.red, standout = true, bold = true },
+
+  Added = { link = 'DiffAdd' },
+  Changed = { link = 'DiffChange' },
+  Removed = { link = 'DiffDelete' },
 
   -- Diagnostic highlight
   DiagnosticError = { fg = p.red },
@@ -267,22 +286,3 @@ local tbl = {
 for name, val in pairs(tbl) do
   api.nvim_set_hl(0, name, val)
 end
-
-vg.terminal_color_0 = '#000000'
-vg.terminal_color_1 = '#fa5d5a'
-vg.terminal_color_2 = '#14c88c'
-vg.terminal_color_3 = '#feef6c'
-vg.terminal_color_4 = '#8abee4'
-vg.terminal_color_5 = '#c0508d'
-vg.terminal_color_6 = '#00debc'
-vg.terminal_color_7 = '#98a8b3'
-vg.terminal_color_8 = '#4c4c4c'
-vg.terminal_color_9 = '#fc5d56'
-vg.terminal_color_10 = '#00ca8b'
-vg.terminal_color_11 = '#fef061'
-vg.terminal_color_12 = '#88bde7'
-vg.terminal_color_13 = '#c0508d'
-vg.terminal_color_14 = '#00debc'
-vg.terminal_color_15 = '#feffff'
-vg.terminal_color_background = '#27303d'
-vg.terminal_color_foreground = '#c4ced3'

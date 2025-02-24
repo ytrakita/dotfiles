@@ -19,6 +19,7 @@ vim.treesitter.query.set('latex', 'folds', [[
       text: (text) @_name
       (#any-contains? @_name
        "frame"
+       "dframe"
        "theorem"
        "proposition"
        "lemma"

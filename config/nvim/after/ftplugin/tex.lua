@@ -34,6 +34,7 @@ vim.treesitter.query.set('latex', 'folds', [[
        "claim"
        "note"
        "remark"
+       "conjecture"
        "proof"))))
   ] @fold
 ]])

@@ -7,11 +7,13 @@ local p = {
   lightgray = '#99a9b3',
   darkgray = '#3b444f',
   verydarkgray = '#2c3643',
-  green = '#16c98d',
-  softblue = '#8abee5',
-  purple = '#ff708e',
   cyan = '#27dede',
   blue = '#288ad6',
+  purple = '#ff708e',
+  green = '#16c98d',
+  red = '#fa5e5b',
+  orange = '#ffc83f',
+  softblue = '#8abee5',
 }
 
 local hl_tbl = {
@@ -23,26 +25,45 @@ local hl_tbl = {
   Visual = p.blue,
 }
 
+local hl_tbl_git = {
+  Add = p.green,
+  Change = p.orange,
+  Delete = p.red,
+}
+
 function M.highlight()
   local s = 'StatusLine'
   for name, val in pairs(hl_tbl) do
     api.nvim_set_hl(0, s .. name .. '0', { fg = p.verydarkgray, bg = val })
     api.nvim_set_hl(0, s .. name .. '1', { fg = val, bg = p.darkgray })
   end
-  api.nvim_set_hl(0, s .. 'Inactive', { fg = p.lightgray, bg = p.darkgray })
-  api.nvim_set_hl(0, s .. 'Preview', { fg = p.lightgray, bg = p.darkgray })
+  for name, val in pairs(hl_tbl_git) do
+    api.nvim_set_hl(0, s .. name, { fg = val, bg = p.darkgray })
+  end
+  for _, name in ipairs({ 'Inactive', 'Preview' }) do
+    api.nvim_set_hl(0, s .. name, { fg = p.lightgray, bg = p.darkgray })
+  end
 end
 
-local function filename(bnum)
-  local bufname = api.nvim_buf_get_name(bnum)
-  local basename = vim.fs.basename(bufname)
-  local is_modified = api.nvim_get_option_value('modified', { buf = bnum })
-  local is_readonly = api.nvim_get_option_value('readonly', { buf = bnum })
-  return table.concat {
-    bufname == '' and '[No Name]' or basename,
-    is_modified and ' +' or '',
-    is_readonly and ' -' or '',
-  }
+local function get_mode_group()
+  local mode = vim.fn.mode()
+  if vim.tbl_contains({ 'v', 'V', '', 's', 'S', '' }, mode) then
+    return 'Visual'
+  elseif vim.tbl_contains({ 'R', 'r' }, mode) then
+    return 'Replace'
+  elseif mode == 'i' then
+    return 'Insert'
+  elseif mode == 'c' then
+    return 'Command'
+  elseif mode == 't' then
+    return 'Terminal'
+  end
+  return 'Normal'
+end
+
+local function hl_group(num)
+  local mode_group = get_mode_group()
+  return table.concat { '%#StatusLine', mode_group, num, '#' }
 end
 
 local function get_mode()
@@ -79,29 +100,55 @@ local function get_mode()
     ['!'] = 'SHELL',
     ['t'] = 'TERMINAL',
   }
-
-  return mode_map[mode_code] or mode_code
+  local str = mode_map[mode_code] or mode_code
+  return table.concat({ hl_group(0), str, '' }, ' ')
 end
 
-local function get_mode_group()
-  local mode = vim.fn.mode()
-  if vim.tbl_contains({ 'v', 'V', '', 's', 'S', '' }, mode) then
-    return 'Visual'
-  elseif vim.tbl_contains({ 'R', 'r' }, mode) then
-    return 'Replace'
-  elseif mode == 'i' then
-    return 'Insert'
-  elseif mode == 'c' then
-    return 'Command'
-  elseif mode == 't' then
-    return 'Terminal'
-  end
-  return 'Normal'
+local function get_fname(bnum)
+  local bname = api.nvim_buf_get_name(bnum)
+  local fname = vim.fn.fnamemodify(bname, ':~:.')
+  local is_modified = api.nvim_get_option_value('modified', { buf = bnum })
+  local is_readonly = api.nvim_get_option_value('readonly', { buf = bnum })
+  return table.concat {
+    hl_group(1),
+    '%=   %<',
+    bname == '' and '[No Name]' or fname,
+    is_modified and ' +' or '',
+    is_readonly and ' -' or '',
+    ' %=',
+  }
 end
 
-local function hi_group(num)
-  local mode_group = get_mode_group()
-  return table.concat { '%#StatusLine', mode_group, num, '#' }
+local function get_texprevstatus()
+  local str = vim.b.texpreview and ' ●' or ''
+  return table.concat { hl_group(1), str }
+end
+
+local function get_gitstatus()
+  local tab = vim.b.gitsigns_status_dict
+  if not tab then return '' end
+  local branch = tab.head and table.concat {
+    hl_group(1), '  ', tab.head,
+  } or ''
+  local added = tab.added and table.concat {
+    '%#StatusLineAdd#', ' +', tab.added,
+  } or ''
+  local changed = tab.changed and table.concat {
+    '%#StatusLineChange#', ' ~', tab.changed,
+  } or ''
+  local removed = tab.removed and table.concat {
+    '%#StatusLineDelete#', ' -', tab.removed,
+  } or ''
+  return table.concat { branch, added, changed, removed }
+end
+
+local function get_ftype()
+  local str = vim.bo.filetype == '' and 'no ft' or vim.bo.filetype
+  return table.concat({ hl_group(1), str }, ' ')
+end
+
+local function get_cursor()
+  return table.concat({ hl_group(1), hl_group(0), '%4l:%-2c ' }, ' ')
 end
 
 local function cmd_line()
@@ -110,19 +157,14 @@ local function cmd_line()
 end
 
 local function active_line()
-  local line = {
-    hi_group(0),
+  return table.concat {
     get_mode(),
-    hi_group(1),
-    filename(0),
-    '%=',
-    vim.b.texpreview and '●' or '',
-    vim.bo.filetype == '' and 'no ft' or vim.bo.filetype,
-    '%3p%%',
-    hi_group(0),
-    '%4l:%-2c ',
+    get_fname(0),
+    get_texprevstatus(),
+    get_gitstatus(),
+    get_ftype(),
+    get_cursor(),
   }
-  return table.concat(line, ' ')
 end
 
 local function preview_line()
@@ -133,20 +175,17 @@ end
 local function inactive_line()
   local win = vim.g.statusline_winid
   local bnum = api.nvim_win_get_buf(win)
-  local line = { '%#StatusLineInactive#', filename(bnum) }
+  local line = { '%#StatusLineInactive#', '%=', get_fname(bnum), '%=' }
   return table.concat(line, ' ')
 end
 
-function M.statusline()
+function M.statusline(is_cmdline)
   local win = vim.g.statusline_winid
   local bnum = api.nvim_win_get_buf(win)
-  local bufname = api.nvim_buf_get_name(bnum)
-
-  if bufname:find('[Command Line]', 1, true) then
-    return cmd_line()
-  elseif win == api.nvim_get_current_win() then
-    return active_line()
-  elseif bufname:find('[Preview]', 1, true) then
+  local bname = api.nvim_buf_get_name(bnum)
+  if win == api.nvim_get_current_win() then
+    return is_cmdline and cmd_line() or active_line()
+  elseif bname:find('[Preview]', 1, true) then
     return preview_line()
   else
     return inactive_line()
@@ -155,20 +194,16 @@ end
 
 function M.qf_line()
   local wnum = api.nvim_get_current_win()
-  local is_active = vim.g.statusline_winid == wnum
-  local group, color, line
-
-  if vim.fn.getwininfo(wnum)[1].loclist == 1 then
-    group = is_active and 'Command0' or 'Inactive'
-    color = ('%%#StatusLine%s#'):format(group)
-    line = { color, 'LOCATION LIST', '%#StatusLineInactive#' }
-  else
-    group = is_active and 'Replace0' or 'Inactive'
-    color = ('%%#StatusLine%s#'):format(group)
-    line = { color, 'QUICKFIX', '%#StatusLineInactive#' }
+  local is_loclist = vim.fn.getwininfo(wnum)[1].loclist == 1
+  local group = 'Inactive'
+  if vim.g.statusline_winid == wnum then
+    group = is_loclist and 'Command0' or 'Replace0'
   end
-
-  return table.concat(line, ' ')
+  return table.concat({
+    ('%%#StatusLine%s#'):format(group),
+    is_loclist and 'LOCATION LIST' or "QUICKFIX",
+    '%#StatusLineInactive#',
+  }, ' ')
 end
 
 return M

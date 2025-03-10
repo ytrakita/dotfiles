@@ -51,6 +51,20 @@ return {
     end,
   },
   {
+    event = 'CmdwinEnter',
+    pattern = '*',
+    callback = function()
+      vim.o.statusline = [[%!v:lua.require'statusline'.statusline(1)]]
+    end,
+  },
+  {
+    event = 'CmdwinLeave',
+    pattern = '*',
+    callback = function()
+      vim.o.statusline = [[%!v:lua.require'statusline'.statusline()]]
+    end,
+  },
+  {
     event = 'ColorScheme',
     pattern = '*',
     callback = function()

@@ -41,6 +41,7 @@ vim.treesitter.query.set('latex', 'folds', [[
 
 local prev_map = {
   [' ll'] = 'toggle',
+  [' lb'] = 'typeset',
   [' lv'] = 'view_pdf',
   [' ls'] = 'save_pdf',
   [' le'] = 'qf_toggle',

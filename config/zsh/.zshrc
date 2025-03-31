@@ -86,3 +86,4 @@ __load_lib () {
 }
 
 __load_lib "$ZDOTDIR/lib/fz.sh"
+__load_lib "$ZDOTDIR/lib/gh.sh"

@@ -11,7 +11,7 @@ vim.opt_local.commentstring = '% %s'
 vim.opt_local.colorcolumn = '80'
 vim.opt_local.spell = true
 vim.opt_local.foldmethod = 'expr'
-vim.opt_local.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 vim.treesitter.query.set('latex', 'folds', [[
   [

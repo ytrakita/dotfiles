@@ -132,7 +132,7 @@ return {
       }
     end,
   },
-  { 'williamboman/mason-lspconfig.nvim', lazy = true },
-  { 'williamboman/mason.nvim', lazy = true },
+  { 'mason-org/mason-lspconfig.nvim', lazy = true },
+  { 'mason-org/mason.nvim', lazy = true },
   { 'folke/neodev.nvim', lazy = true },
 }

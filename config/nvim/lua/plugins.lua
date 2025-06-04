@@ -150,14 +150,24 @@ return {
     'lewis6991/gitsigns.nvim',
     opts = {
       on_attach = function(bnum)
+        local gitsigns = require 'gitsigns'
         vim.keymap.set('n', ']c', function()
-          require 'gitsigns'.nav_hunk('next')
+          gitsigns.nav_hunk('next')
           vim.cmd.normal 'zt'
         end, { buffer = bnum })
         vim.keymap.set('n', '[c', function()
-          require 'gitsigns'.nav_hunk('prev')
+          gitsigns.nav_hunk('prev')
           vim.cmd.normal 'zt'
         end, { buffer = bnum })
+        vim.keymap.set('n', ' gs', gitsigns.stage_hunk)
+        vim.keymap.set('n', ' gr', gitsigns.reset_hunk)
+
+        vim.keymap.set('v', ' gs', function()
+          gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+        end)
+        vim.keymap.set('v', ' gr', function()
+          gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+        end)
       end
     },
   },

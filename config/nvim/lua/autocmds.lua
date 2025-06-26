@@ -86,7 +86,7 @@ return {
     event = 'TextYankPost',
     pattern = '*',
     callback = function()
-      vim.highlight.on_yank { on_visual = false }
+      vim.hl.on_yank()
     end,
   },
   {

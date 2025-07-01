@@ -15,6 +15,11 @@
   arg: (curly_group (_) @nospell) @markup.link) @function.macro
   (#any-contains? @_name "\\citets" "\\axmref" "\\axmthref"))
 
+((generic_command
+  command: (command_name) @_name
+  arg: (curly_group (_) @markup.link.url))
+  (#any-contains? @_name "\\email" "\\mailto" "\\url"))
+
 (class_include) @nospell
 (new_command_definition) @nospell
 
@@ -32,7 +37,7 @@
 (author_declaration
   command: _ @namespace
   authors: (curly_group_author_list
-             ((author)+ @nospell)))
+             ((author) @nospell @markup.heading.2)))
 
 (label_definition) @nospell
 (label_reference) @nospell

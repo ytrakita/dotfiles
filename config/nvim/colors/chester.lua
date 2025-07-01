@@ -253,6 +253,7 @@ local tbl = {
   ['@markup.underline'] = { link = 'Underlined' },
 
   ['@markup.heading'] = { link = 'Title' },
+  ['@markup.heading.2'] = { fg = p.purple },
 
   ['@markup.math'] = { link = 'Special' },
   ['@markup.environment'] = { link = 'Statement' },

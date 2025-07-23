@@ -8,7 +8,7 @@
 ((generic_command
   command: (command_name) @_name
   arg: (curly_group (_) @nospell))
-  (#any-contains? @_name "\\email" "ref"))
+  (#any-contains? @_name "\\email" "ref" "jelcodes"))
 
 ((generic_command
   command: (command_name) @_name

@@ -2,7 +2,7 @@
 
 REPO_ROOT=$(cd $(dirname $0)/..; pwd)
 
-DOT_STATE=$XDG_STATE_HOME/dotfiles/state
+DOT_STATE=${XDG_STATE_HOME:="$HOME/.local/state"}/dotfiles/state
 
 has () {
   type "$1" > /dev/null 2>&1

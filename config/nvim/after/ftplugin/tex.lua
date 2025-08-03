@@ -84,8 +84,8 @@ do
   map('n', 'csd', '<Plug>(resize_delims)', opts)
   map('n', 'dsd', '<Plug>(delete_delims)', opts)
 
-  map({ 'n', 'x', 'o' }, ']]', '<Plug>(next_section)zt', opts)
-  map({ 'n', 'x', 'o' }, '[[', '<Plug>(prev_section)zt', opts)
+  map({ 'n', 'x', 'o' }, ']]', '<Plug>(next_section)zz', opts)
+  map({ 'n', 'x', 'o' }, '[[', '<Plug>(prev_section)zz', opts)
   map({ 'n', 'x', 'o' }, ']m', '<Plug>(next_item)', opts)
   map({ 'n', 'x', 'o' }, '[m', '<Plug>(prev_item)', opts)
 

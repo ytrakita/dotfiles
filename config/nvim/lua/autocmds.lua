@@ -94,14 +94,4 @@ return {
     pattern = '*',
     command = 'redrawstatus',
   },
-  {
-    event = 'BufEnter',
-    pattern = '*.tex',
-    command = 'TSEnable highlight',
-  },
-  {
-    event = 'FileType',
-    pattern = 'tex',
-    command = 'TSEnable highlight',
-  },
 }

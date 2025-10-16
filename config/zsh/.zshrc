@@ -80,6 +80,12 @@ __set_julia_alias () {
 
 __set_julia_alias
 
+# fzf
+
+alias fzf='fzf --gutter=" "'
+
+# Library
+
 # https://github.com/wtsnjp/dotfiles/blob/master/zshrc
 __load_lib () {
   [ -f "$1" ] && source "$1"

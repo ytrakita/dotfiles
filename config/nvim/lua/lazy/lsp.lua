@@ -68,54 +68,45 @@ return {
         },
       }
 
-      local lspconfig = require 'lspconfig'
-
-      local julia_env_path = vim.fs.joinpath(
-        os.getenv 'JULIA_DEPOT_PATH', 'environments'
-      )
-
-      lspconfig.julials.setup {
-        julia_env_path = julia_env_path,
-        single_file_support = true,
-        on_new_config = function(new_config, _)
-          local julia_path = vim.fs.joinpath(
-            julia_env_path, 'nvim-lspconfig', 'bin', 'julia'
-          )
-          if lspconfig.util.path.is_file(julia_path) then
-            new_config.cmd[1] = julia_path
+      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+      vim.lsp.config('lua_ls', {
+        on_init = function(client)
+          if client.workspace_folders then
+            local path = client.workspace_folders[1].name
+            if
+              path ~= vim.fn.stdpath('config')
+                and (vim.uv.fs_stat(path .. '/.luarc.json')
+                or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+            then
+              return
+            end
           end
+
+          client.config.settings.Lua = vim.tbl_deep_extend(
+            'force',
+            client.config.settings.Lua,
+            {
+              runtime = {
+                version = 'LuaJIT',
+                path = {
+                  'lua/?.lua',
+                  'lua/?/init.lua',
+                },
+              },
+              workspace = {
+                checkThirdParty = false,
+                library = {
+                  vim.env.VIMRUNTIME,
+                  '${3rd}/luv/library'
+                },
+              },
+            })
         end,
         on_attach = on_attach,
-        root_dir = function(fname)
-          local util = require'lspconfig.util'
-          return util.root_pattern 'Project.toml'(fname)
-            or util.find_git_ancestor(fname)
-            or util.path.dirname(fname)
-        end,
-      }
-      lspconfig.lua_ls.setup {
         settings = {
-          Lua = {
-            runtime = {
-              version = 'LuaJIT',
-            },
-            diagnostics = {
-              globals = { 'vim' },
-            },
-            workspace = {
-              library = api.nvim_get_runtime_file('', true),
-              checkThirdParty = false,
-            },
-            telemetry = {
-              enable = false,
-            },
-          },
+          Lua = {},
         },
-        on_attach = on_attach,
-      }
-      lspconfig.pyright.setup {
-        on_attach = on_attach,
-      }
+      })
 
       require 'mason'.setup {
         ui = {

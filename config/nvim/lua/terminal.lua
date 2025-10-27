@@ -3,15 +3,24 @@ local api = vim.api
 
 local M = {}
 
-local state = {}
+local types = {
+  lazygit = function() vim.fn.jobstart('lazygit', { term = true }) end,
+  terminal = vim.cmd.terminal,
+}
 
-local function init_buf()
+for type, fn in pairs(types) do
+  types[type] = { fn = fn }
+end
+
+local function init_buf(type)
   local prebuf = api.nvim_get_current_buf()
 
-  vim.cmd.terminal()
+  local bnum = api.nvim_create_buf(false, true)
+  api.nvim_set_current_buf(bnum)
 
-  local bnum = api.nvim_get_current_buf()
-  api.nvim_set_option_value('filetype', 'terminal', { buf = bnum })
+  types[type].fn()
+
+  api.nvim_set_option_value('filetype', type, { buf = bnum })
   api.nvim_set_current_buf(prebuf)
 
   return bnum
@@ -31,23 +40,23 @@ local function open_float_win(bnum)
   return wnum
 end
 
-function M.open(opt)
+function M.open(type, opt)
   if not vim.tbl_contains({ 's', 'v', 'f' }, opt) then return end
 
-  local bnum = state.buf or init_buf()
+  local bnum = types[type].buf or init_buf(type)
 
   if opt == 's' or opt == 'v' then
     vim.cmd.wincmd(opt)
     api.nvim_set_current_buf(bnum)
-    state.win = api.nvim_get_current_win()
+    types[type].win = api.nvim_get_current_win()
   elseif opt == 'f' then
-    state.win = open_float_win(bnum)
+    types[type].win = open_float_win(bnum)
   end
 
   vim.cmd.startinsert()
 
-  if not state.buf then
-    state.buf = bnum
+  if not types[type].buf then
+    types[type].buf = bnum
   end
 end
 

@@ -6,7 +6,19 @@ gui:
       - bold
     selectedLineBgColor:
       - '#1d508d'
-  nerdFontsVersion:
-    3
-  border:
-    single
+  nerdFontsVersion: 3
+  border: single
+  timeFormat: 06/01/02 15:04
+  shortTimeFormat: 15:04
+git:
+  branchLogCmd: >-
+    git log --graph --color=always --date=format:'%Y-%m-%d %a %H:%M'
+    --pretty=format:'%C(#feef6d)%h%Creset %C(cyan)%ad%Creset
+    %C(#288ad6)%an%Creset %C(#ffc83f)%d%Creset
+    %n%n%C(#dbe6ec bold)%s%Creset%n' {{branchName}} --
+  allBranchesLogCmds:
+    - >-
+      git log --graph --color=always --date=format:'%Y-%m-%d %a %H:%M'
+      --pretty=format:'%C(#feef6d)%h%Creset %C(cyan)%ad%Creset
+      %C(#288ad6)%an%Creset %C(#ffc83f)%d%Creset
+      %n%n%C(#dbe6ec bold)%s%Creset%n' {{branchName}} --

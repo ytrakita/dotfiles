@@ -22,3 +22,15 @@ git:
       --pretty=format:'%C(#feef6d)%h%Creset %C(cyan)%ad%Creset
       %C(#288ad6)%an%Creset %C(#ffc83f)%d%Creset
       %n%n%C(#dbe6ec bold)%s%Creset%n' {{branchName}} --
+os:
+  editPreset: "nvim-remote"
+  edit: >-
+    [ -z "$NVIM" ] && (nvim -- {{filename}}) ||
+    (nvim --server "$NVIM" --remote-send "q" &&
+    nvim --server "$NVIM" --remote-silent "{{filename}}")
+  editAtLine: >-
+    [ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) ||
+    (nvim --server "$NVIM" --remote-send "q" &&
+    nvim --server "$NVIM" --remote-silent "{{filename}}" &&
+    nvim --server "$NVIM" --remote-send ":{{line}}<CR>")
+  editAtLineAndWait: 'nvim +{{line}} {{filename}}'

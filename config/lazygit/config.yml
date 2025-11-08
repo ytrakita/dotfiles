@@ -11,6 +11,9 @@ gui:
   timeFormat: 06/01/02 15:04
   shortTimeFormat: 15:04
 git:
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
   branchLogCmd: >-
     git log --graph --color=always --date=format:'%Y-%m-%d %a %H:%M'
     --pretty=format:'%C(#feef6d)%h%Creset %C(cyan)%ad%Creset

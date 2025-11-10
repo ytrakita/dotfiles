@@ -11,6 +11,8 @@ vim.filetype.add {
     ['kitty.conf'] = 'kitty',
   },
   pattern = {
+    ['.*/git/config'] = 'git_config',
+    ['.*/git/ignore'] = 'gitignore',
     ['.*/_layouts/.*%.html'] = 'liquid',
     ['.*/_includes/.*%.html'] = 'liquid',
   },

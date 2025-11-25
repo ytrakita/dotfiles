@@ -35,6 +35,7 @@ require 'lazy'.setup('plugins', {
     notify = false,
   },
   colorscheme = { 'chester' },
+  rocks = { enabled = false },
 })
 
 local id = api.nvim_create_augroup('MyAutoCmd', {})

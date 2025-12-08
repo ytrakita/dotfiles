@@ -74,6 +74,7 @@ return {
         TabLineSel = {},
         WinSeparator = {},
         filtrationMatch = { fg = '#ffc83f', bold = true },
+        filtrationActiveBorder = { fg = '#16c98d', bg = '#3b444f', bold = true },
       }
       for name, val in pairs(hl_tbl) do
         vim.api.nvim_set_hl(0, name, val)

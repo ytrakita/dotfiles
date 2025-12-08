@@ -27,45 +27,19 @@ return {
   },
   {
     dir = '~/repos/filtration.nvim',
-    keys = { ' b' },
-    config = function()
-      local filtration = require 'filtration'
-
-      filtration.setup {
-        menu = {
-          keymap = {
-            menu = {
-              ['i'] = { 'filter' },
-              ['q'] = { 'quit' },
-              ['<CR>'] = { 'do_action', '' },
-              ['s'] = { 'do_action', 's' },
-              ['v'] = { 'do_action', 'v' },
-              ['t'] = { 'do_action', 't' },
-              ['<C-B>'] = '<C-B>',
-              ['<C-F>'] = '<C-F>',
-              ['<C-N>'] = 'j',
-              ['<C-P>'] = 'k',
-              ['gg'] = 'gg',
-              ['G'] = 'G',
-            },
-            prompt = {
-              ['<CR>'] = { 'select', true },
-              ['<ESC>'] = { 'quit' },
-              ['<C-N>'] = { 'select', true },
-              ['<C-P>'] = { 'select', false },
-            },
-          },
-        },
-        sources = { 'fd', 'rg', 'buffer', 'mru', 'help_tags' },
-      }
-
-      local map = vim.keymap.set
-      map('n', ' bf', filtration.display_prompt.fd, {})
-      map('n', ' bg', filtration.display_prompt.rg, {})
-      map('n', ' bb', filtration.display_menu.buffer, {})
-      map('n', ' bh', filtration.display_menu.mru, {})
-      map('n', ' bt', filtration.display_prompt.help_tags, {})
-    end,
+    keys = {
+      { ' bf', function() require 'filtration'.display_prompt.fd() end },
+      { ' bg', function() require 'filtration'.display_prompt.rg() end },
+      { ' bb', function() require 'filtration'.display_menu.buffer() end },
+      { ' bh', function() require 'filtration'.display_menu.mru() end },
+      { ' bt', function() require 'filtration'.display_prompt.help_tags() end },
+    },
+    opts = {
+      highlights = {
+        filtrationMatch = { fg = '#ffc83f', bold = true },
+        filtrationActiveBorder = { fg = '#16c98d', bg = '#3b444f', bold = true },
+      },
+    },
   },
   {
     'romgrk/fzy-lua-native',
@@ -74,30 +48,14 @@ return {
   },
   {
     dir = '~/repos/tfx.nvim',
-    keys = { ' f' },
-    config = function()
-      local tfx = require 'tfx'
-
-      tfx.setup {
-        keymap = {
-          h = { 'collapse' },
-          l = { 'expand' },
-          ['<CR>'] = { 'go', '' },
-          ['s'] = { 'go', 's' },
-          ['v'] = { 'go', 'v' },
-          ['t'] = { 'go', 't' },
-          u = { 'up' },
-          q = { 'quit' },
-          o = { 'add' },
-          D = { 'delete' },
-          R = { 'rename' },
-        },
-      }
-
-      local map = vim.keymap.set
-      map('n', ' ff', tfx.explore, {})
-      map('n', ' fx', tfx.explore_current_dir, {})
-    end,
+    keys = {
+      { ' ff', function() require 'tfx'.explore() end },
+      { ' fx', function()
+        local path = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
+        require 'tfx'.explore(path)
+      end },
+    },
+    opts = {},
   },
   {
     dir = '~/repos/closer.nvim',

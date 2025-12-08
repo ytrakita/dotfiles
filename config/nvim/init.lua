@@ -49,7 +49,9 @@ end
 vim.cmd.colorscheme 'chester'
 
 api.nvim_set_hl(0, 'SignColumn', { bg = 'None' })
+api.nvim_set_hl(0, 'CursorLine', { bg = '#1d508d' })
 api.nvim_set_hl(0, 'CursorLineNr', { fg = '#feef6d', bg = '#3b444f' })
+api.nvim_set_hl(0, 'QuickFixLine', { bg = 'None' })
 
 for _, v in ipairs({ 'Add', 'Change', 'Delete' }) do
   api.nvim_set_hl(0, 'GitSigns' .. v, { link = 'Diff' .. v })

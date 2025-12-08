@@ -1,11 +1,10 @@
--- https://github.com/kevinhwang91/nvim-bqf
-
 local vim = vim
 local api = vim.api
 local vfn = vim.fn
 
 local M = {}
 
+-- https://github.com/kevinhwang91/nvim-bqf
 function M.textfunc(info)
   local items
   local lines = {}

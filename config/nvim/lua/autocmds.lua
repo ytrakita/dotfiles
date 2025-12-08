@@ -1,5 +1,13 @@
 return {
   {
+    event = 'FileType',
+    pattern = 'qf',
+    callback = function(tbl)
+      require 'floatmenu.tcursor'.create_autocmd(tbl.buf)
+      require 'floatmenu.tcursor'.hide_cursor()
+    end,
+  },
+  {
     event = 'BufWritePre',
     pattern = '*',
     callback = function(tbl)

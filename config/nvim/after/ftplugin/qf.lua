@@ -4,6 +4,7 @@ opt.buflisted = false
 opt.swapfile = false
 opt.bufhidden = 'hide'
 
+opt.cursorline = true
 opt.list = false
 opt.wrap = false
 opt.foldenable = false

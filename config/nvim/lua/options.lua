@@ -69,7 +69,7 @@ return {
   tabstop = 2,
 
   breakindent = true,
-  cursorline = true,
+  cursorline = false,
   foldcolumn = '2',
   foldtext = [[v:lua.require'fold'.foldtext()]],
   list = true,

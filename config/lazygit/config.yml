@@ -37,3 +37,4 @@ os:
     nvim --server "$NVIM" --remote-silent "{{filename}}" &&
     nvim --server "$NVIM" --remote-send ":{{line}}<CR>")
   editAtLineAndWait: 'nvim +{{line}} {{filename}}'
+promptToReturnFromSubprocess: false

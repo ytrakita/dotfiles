@@ -3,17 +3,15 @@ local autocmds = require 'autocmds'
 local keymaps = require 'keymaps'
 local options = require 'options'
 
-local vim = vim
 local api = vim.api
-local vfn = vim.fn
 
-if vfn.has 'vim_starting' == 1 then
+if vim.fn.has 'vim_starting' == 1 then
   for name, val in pairs(startup) do
     api.nvim_set_var(name, val)
   end
 end
 
-local lazypath = table.concat({ vfn.stdpath 'data', 'lazy', 'lazy.nvim' }, '/')
+local lazypath = vim.fs.joinpath(vim.fn.stdpath 'data', 'lazy', 'lazy.nvim')
 if not vim.uv.fs_stat(lazypath) then
   vim.system {
     'git',
@@ -27,7 +25,7 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 require 'lazy'.setup('plugins', {
   dev = {
-    path = vim.fs.joinpath(os.getenv 'HOME', 'repos'),
+    path = vim.fs.joinpath(vim.uv.os_getenv 'HOME', 'repos'),
     fallback = false,
   },
   change_detection = {
@@ -57,7 +55,7 @@ for _, v in ipairs({ 'Add', 'Change', 'Delete' }) do
   api.nvim_set_hl(0, 'GitSigns' .. v, { link = 'Diff' .. v })
 end
 
-for _, group in ipairs(vfn.getcompletion('@lsp', 'highlight')) do
+for _, group in ipairs(vim.fn.getcompletion('@lsp', 'highlight')) do
   api.nvim_set_hl(0, group, {})
 end
 

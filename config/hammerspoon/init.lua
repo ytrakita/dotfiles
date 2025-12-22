@@ -1,12 +1,11 @@
+---@diagnostic disable-next-line: undefined-global
 local hs = hs
 local app = hs.application
 
 
 do -- config watcher
 
-local configWatcher = require 'configWatcher'
-
-configWatcher:start()
+require 'configWatcher':start()
 
 end
 
@@ -28,7 +27,7 @@ local function openKitty()
     return
   end
 
-  app.open('kitty')
+  kitty:setFrontmost()
   local win = kitty:mainWindow()
   win:setSize(win:frame().w, win:screen():frame().h)
   win:setTopLeft(0, 0)

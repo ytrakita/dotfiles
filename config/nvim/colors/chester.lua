@@ -70,7 +70,7 @@ local tbl = {
   NonText = { fg = p.gray },
   Normal = { fg = p.verylightgray, bg = p.verydarkgray },
   NormalFloat = { bg = p.darkgray },
-  FloatBorder = { link = 'NormalFloat' },
+  FloatBorder = { fg = p.lightgray, bg = p.darkgray },
   FloatTitle = { fg = p.purple, bg = p.darkgray, bold = true },
   FloatFooter = { link = 'FloatTitle' },
   NormalNC = {},
@@ -251,9 +251,6 @@ local tbl = {
   ['@markup.italic'] = { italic = true },
   ['@markup.strikethrough'] = { strikethrough = true },
   ['@markup.underline'] = { link = 'Underlined' },
-
-  ['@markup.heading'] = { link = 'Title' },
-  ['@markup.heading.2'] = { fg = p.purple },
 
   ['@markup.math'] = { link = 'Special' },
   ['@markup.environment'] = { link = 'Statement' },

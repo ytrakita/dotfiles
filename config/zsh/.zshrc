@@ -84,6 +84,23 @@ __set_julia_alias
 
 alias fzf='fzf --gutter=" "'
 
+fzf-select-history () {
+  BUFFER=$(history -n -r 1 | fzf --query "$LBUFFER" --reverse --height 20)
+  CURSOR=$#BUFFER
+  zle reset-prompt
+}
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
+
+source ~/.local/share/zsh/fzf-tab/fzf-tab.plugin.zsh
+
+my-fzf-tab () {
+  functions[compadd]=$functions[-ftb-compadd]
+  zle fzf-tab-complete
+}
+zle -N my-fzf-tab
+bindkey '^I' my-fzf-tab
+
 # Library
 
 # https://github.com/wtsnjp/dotfiles/blob/master/zshrc

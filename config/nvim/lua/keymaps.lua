@@ -7,12 +7,10 @@ return {
     n = 'nzv',
     N = 'Nzv',
     Q = '',
-    Y = 'y$',
     ZQ = '',
     ZZ = '',
     ['*'] = '*zv',
     ['#'] = '#zv',
-    ['<C-L>'] = '<Cmd>nohlsearch<CR><C-L>',
     [' '] = '',
     [' s'] = '<Cmd>silent! write | source %<CR>',
     [' tf'] = function() require 'terminal'.open('terminal', 'f') end,
@@ -33,7 +31,7 @@ return {
     ['<C-T>'] = '<Esc><Left>"zx"zpa',
   },
   x = {
-    ['p'] = 'pgvygv<ESC>',
+    p = 'pgvygv<ESC>',
     ['<'] = '<gv',
     ['>'] = '>gv',
   },
@@ -43,7 +41,12 @@ return {
     ['<C-D>'] = '<Del>',
     ['<C-E>'] = '<End>',
     ['<C-F>'] = '<Right>',
-    ['<C-K>'] = [[<C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos() - 2]<CR>]],
+    ['<C-K>'] = function()
+      local fn = vim.fn
+      local pos = fn.getcmdpos()
+      local line = pos > 1 and fn.getcmdline():sub(1, pos - 1) or ''
+      fn.setcmdline(line)
+    end,
     ['<C-N>'] = '<Down>',
     ['<C-P>'] = '<Up>',
     ['%%'] = [[<C-R>= getcmdtype() == ':' ? expand('%:h') : '%%'<CR>]],

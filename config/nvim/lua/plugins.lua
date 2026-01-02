@@ -14,13 +14,6 @@ return {
     config = true,
   },
   {
-    dir = '~/repos/lightalign',
-    keys = {
-      { 'ga', '<Plug>(align)', mode = { 'n', 'x' }},
-      { 'gA', '<Plug>(align_left)', mode = { 'n', 'x' }},
-    },
-  },
-  {
     dir = '~/repos/floatmenu.nvim',
     opts = {},
     lazy = true,

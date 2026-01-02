@@ -1,3 +1,12 @@
+vim.keymap.set({ 'n', 'x' }, '<Plug>(align_right)', function()
+  vim.o.operatorfunc = [[v:lua.require'align'.right]]
+  return 'g@'
+end, { expr = true })
+vim.keymap.set({ 'n', 'x' }, '<Plug>(align_left)', function()
+  vim.o.operatorfunc = [[v:lua.require'align'.left]]
+  return 'g@'
+end, { expr = true })
+
 return {
   n = {
     l = function()
@@ -9,6 +18,8 @@ return {
     Q = '',
     ZQ = '',
     ZZ = '',
+    ga = '<Plug>(align_left)',
+    gA = '<Plug>(align_right)',
     ['*'] = '*zv',
     ['#'] = '#zv',
     [' '] = '',
@@ -34,6 +45,8 @@ return {
     p = 'pgvygv<ESC>',
     ['<'] = '<gv',
     ['>'] = '>gv',
+    ga = '<Plug>(align_left)',
+    gA = '<Plug>(align_right)',
   },
   c = {
     ['<C-A>'] = '<Home>',

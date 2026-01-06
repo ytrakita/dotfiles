@@ -31,11 +31,11 @@ return {
     event = 'BufNewFile',
     pattern = '*.tex',
     callback = function()
-      local template = table.concat({
-        vim.fn.stdpath 'data', 'templates', 'template.tex',
-      }, '/')
+      local data = vim.fn.stdpath 'data'
+      local path = vim.fs.joinpath(data, 'templates', 'template.tex')
+      if not vim.uv.fs_stat(path) then return end
       local lines = {}
-      for line in io.lines(template) do
+      for line in io.lines(path) do
         table.insert(lines, line)
       end
       vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
@@ -82,7 +82,10 @@ return {
         TabLineSel = {},
         WinSeparator = {},
         filtrationMatch = { fg = '#ffc83f', bold = true },
-        filtrationActiveBorder = { fg = '#16c98d', bg = '#3b444f', bold = true },
+        filtrationActiveBorder = {
+          fg = '#27dede', bg = '#3b444f', bold = true,
+        },
+        filtrationBorder = { fg = '#67747c', bg = '#3b444f', bold = false },
       }
       for name, val in pairs(hl_tbl) do
         vim.api.nvim_set_hl(0, name, val)
@@ -94,9 +97,7 @@ return {
   {
     event = 'TextYankPost',
     pattern = '*',
-    callback = function()
-      vim.hl.on_yank()
-    end,
+    callback = function() vim.hl.on_yank() end,
   },
   {
     event = 'ModeChanged',

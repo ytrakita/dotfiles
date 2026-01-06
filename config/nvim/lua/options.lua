@@ -61,9 +61,7 @@ return {
   shiftwidth = 0,
   smartindent = true,
   spell = false,
-  spellfile = table.concat({
-    vim.fn.stdpath 'data', 'spell', 'en.utf-8.add',
-  }, '/'),
+  spellfile = vim.fs.joinpath(vim.fn.stdpath 'data', 'spell', 'en.utf-8.add'),
   spelllang = { 'en', 'cjk' },
   swapfile = false,
   tabstop = 2,

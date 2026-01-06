@@ -1,9 +1,7 @@
 local vim = vim
 
 return {
-  {
-    'folke/lazy.nvim',
-  },
+  { 'folke/lazy.nvim' },
   {
     'fladson/vim-kitty',
     ft = 'kitty',

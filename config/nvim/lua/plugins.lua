@@ -3,10 +3,6 @@ local vim = vim
 return {
   { 'folke/lazy.nvim' },
   {
-    'fladson/vim-kitty',
-    ft = 'kitty',
-  },
-  {
     'kylechui/nvim-surround',
     keys = { 'ys', 'ds', 'cs', 'S' },
     config = true,

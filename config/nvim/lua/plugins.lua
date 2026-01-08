@@ -95,24 +95,32 @@ return {
     'lewis6991/gitsigns.nvim',
     opts = {
       on_attach = function(bnum)
-        local gitsigns = require 'gitsigns'
-        vim.keymap.set('n', ']c', function()
-          gitsigns.nav_hunk('next')
-          vim.cmd.normal 'zt'
-        end, { buffer = bnum })
-        vim.keymap.set('n', '[c', function()
-          gitsigns.nav_hunk('prev')
-          vim.cmd.normal 'zt'
-        end, { buffer = bnum })
-        vim.keymap.set('n', ' gs', gitsigns.stage_hunk)
-        vim.keymap.set('n', ' gr', gitsigns.reset_hunk)
-
-        vim.keymap.set('v', ' gs', function()
-          gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end)
-        vim.keymap.set('v', ' gr', function()
-          gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end)
+        local keymap = {
+          n = {
+            [']c'] = function() require 'gitsigns'.nav_hunk 'next' end,
+            ['[c'] = function() require 'gitsigns'.nav_hunk 'prev' end,
+            [' gl'] = function() require 'gitsigns'.setloclist() end,
+            [' gs'] = function() require 'gitsigns'.stage_hunk() end,
+            [' gr'] = function() require 'gitsigns'.reset_hunk() end,
+          },
+          v = {
+            [' gs'] = function()
+              require 'gitsigns'.stage_hunk {
+                vim.fn.line '.', vim.fn.line 'v',
+              }
+            end,
+            [' gr'] = function()
+              require 'gitsigns'.reset_hunk {
+                vim.fn.line '.', vim.fn.line 'v',
+              }
+            end,
+          },
+        }
+        for mode, map in pairs(keymap) do
+          for lhs, rhs in pairs(map) do
+            vim.keymap.set(mode, lhs, rhs, { buffer = bnum })
+          end
+        end
       end
     },
   },

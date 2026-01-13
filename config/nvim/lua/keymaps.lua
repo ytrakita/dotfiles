@@ -29,6 +29,11 @@ return {
     [' ts'] = function() require 'terminal'.open('', 's') end,
     [' tv'] = function() require 'terminal'.open('', 'v') end,
     [' lg'] = function() require 'terminal'.open('lazygit', 'f') end,
+    ['<Leader>s'] = function() require 'spellcheck'.open_list() end,
+    [' e'] = function() vim.diagnostic.open_float { border = 'single' } end,
+    ['[d'] = function() vim.diagnostic.jump { count = -1, float = true } end,
+    [']d'] = function() vim.diagnostic.jump { count = 1, float = true } end,
+    [' q'] = vim.diagnostic.setloclist,
   },
   i = {
     ['<C-A>'] = '<C-G>U<C-O>^',

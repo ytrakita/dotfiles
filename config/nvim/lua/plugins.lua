@@ -46,7 +46,7 @@ return {
   },
   {
     dir = '~/repos/closer.nvim',
-    event = 'InsertEnter',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     opts = {
       ft = {
         tex = {

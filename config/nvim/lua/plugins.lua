@@ -92,6 +92,11 @@ return {
     },
   },
   {
+    'shellRaining/hlchunk.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = { indent = { enable = true } },
+  },
+  {
     'lewis6991/gitsigns.nvim',
     opts = {
       on_attach = function(bnum)

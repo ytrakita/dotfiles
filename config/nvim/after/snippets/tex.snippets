@@ -89,7 +89,7 @@ snippet ]i \item (recursive)
 	]i${0}
 
 snippet ]il \item with label (recursive)
-	\\item \label{item:${1:}}
+	\\item \label{item:${1}}
 		${2}
 	]il${0}
 
@@ -107,12 +107,12 @@ snippet enuml enumerate environment with label
 		]il${0}
 	\\end{enumerate}
 
-snippet enuma enumerate environment
-	\\begin{enumerate}[label = {\upshape (\alph*)}, ref = \alph*]
+snippet eqv equivalent environment
+	\\begin{equivalent}
 		\\item \label{item:$1}
 			${2}
 		]il${0}
-	\\end{enumerate}
+	\\end{equivalent}
 
 snippet desc description environment
 	\\begin{description}
@@ -122,47 +122,57 @@ snippet desc description environment
 
 # Theorem-like
 snippet thm theorem environment
-	\\begin{theorem}
+	\\begin{theorem}\label{thm:${1}}
 		${0:${VISUAL}}
 	\\end{theorem}
 
+snippet thm* theorem* environment
+	\\begin{theorem*}[${1}]\label{thm:${2}}
+		${0:${VISUAL}}
+	\\end{theorem*}
+
 snippet prop proposition environment
-	\\begin{proposition}
+	\\begin{proposition}\label{prop:${1}}
 		${0:${VISUAL}}
 	\\end{proposition}
 
 snippet lem lemma environment
-	\\begin{lemma}
+	\\begin{lemma}\label{lem:${1}}
 		${0:${VISUAL}}
 	\\end{lemma}
 
 snippet def definition environment
-	\\begin{definition}
+	\\begin{definition}\label{def:${1}}
 		${0:${VISUAL}}
 	\\end{definition}
 
+snippet def* definition* environment
+	\\begin{definition*}[${1}]\label{def:${2}}
+		${0:${VISUAL}}
+	\\end{definition*}
+
 snippet ex example environment
-	\\begin{example}
+	\\begin{example}\label{ex:${1}}
 		${0:${VISUAL}}
 	\\end{example}
 
 snippet axm axiom environment
-	\\begin{axiom}
+	\\begin{axiom}[${1}]\label{axm:${2}}
 		${0:${VISUAL}}
 	\\end{axiom}
 
 snippet cor corollary environment
-	\\begin{corollary}
+	\\begin{corollary}\label{cor:${1}}
 		${0:${VISUAL}}
 	\\end{corollary}
 
 snippet obs observation environment
-	\\begin{observation}
+	\\begin{observation}\label{obs:${1}}
 		${0:${VISUAL}}
 	\\end{observation}
 
 snippet asm assumption environment
-	\\begin{assumption}
+	\\begin{assumption}\label{asm:${1}}
 		${0:${VISUAL}}
 	\\end{assumption}
 
@@ -172,7 +182,7 @@ snippet proof proof environment
 	\\end{proof}
 
 snippet clm claim environment
-	\\begin{claim}
+	\\begin{claim}\label{clm:${1}}
 		${0:${VISUAL}}
 	\\end{claim}
 
@@ -260,6 +270,11 @@ snippet abl alertblock environment
 	\\begin{alertblock}{${1:title}}
 		${0:${VISUAL}}
 	\\end{alertblock}
+
+snippet cbl cblock environment
+	\\begin{cblock}[${1:.8\textwidth}]
+		${0:${VISUAL}}
+	\\end{cblock}
 
 snippet ebl exampleblock environment
 	\\begin{exampleblock}{${1:title}}

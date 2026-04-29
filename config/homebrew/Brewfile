@@ -27,6 +27,7 @@ brew "sanemat/font/ricty", args: ["with-powerline"]
 brew "silicon"
 brew "starship"
 brew "tokei"
+brew "tree-sitter-cli"
 brew "vim"
 brew "wget"
 brew "xpdf"
